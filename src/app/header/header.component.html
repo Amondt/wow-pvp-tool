@@ -1,0 +1,67 @@
+<mat-toolbar color="primary">
+  <span
+    ><h1
+      class="mat-display-1"
+      [ngStyle]="{
+        cursor: 'pointer',
+        'user-select': 'none',
+        'margin-bottom': '0'
+      }"
+      routerLink="char"
+    >
+      Wow toolkit
+    </h1></span
+  >
+
+  <!-- <span [ngStyle]="{ margin: '40px' }">
+        <button mat-button routerLink="char">
+            <a class="mat-body">character search</a>
+        </button>
+
+        <button mat-button routerLink="realms-status">
+            <a class="mat-body">realm list</a>
+        </button>
+    </span> -->
+
+  <span style="flex: 1 1 auto"></span>
+
+  <button
+    [ngStyle]="{ margin: '10px', transform: 'scale(0.7)' }"
+    mat-icon-button
+    aria-label="Change color theme icon"
+    matTooltip="Change color theme"
+    [matMenuTriggerFor]="colorThemeMenu"
+  >
+    <mat-icon>format_color_fill</mat-icon>
+  </button>
+  <mat-menu #colorThemeMenu="matMenu" class="menu-container">
+    <div class="container">
+      <button
+        class="color-btn"
+        *ngFor="let color of themeColorsList"
+        [ngStyle]="{ 'background-color': color.hexa }"
+        (click)="onChangeColorTheme(color.name)"
+        mat-mini-fab
+        [matTooltip]="color.tooltip"
+      ></button>
+    </div>
+  </mat-menu>
+
+  <!-- <mat-icon
+        [ngStyle]="{ transform: 'scale(0.7)' }"
+        (click)="isDarkTheme ? onToggleTheme() : null"
+        >brightness_5</mat-icon
+    >
+    <mat-slide-toggle
+        [ngStyle]="{ margin: '8px', transform: 'scale(0.9)' }"
+        matTooltip="Toggle dark & light mode"
+        [checked]="isDarkTheme"
+        (change)="onToggleTheme()"
+    >
+    </mat-slide-toggle>
+    <mat-icon
+        [ngStyle]="{ transform: 'scale(0.7)' }"
+        (click)="!isDarkTheme ? onToggleTheme() : null"
+        >brightness_2</mat-icon
+    > -->
+</mat-toolbar>

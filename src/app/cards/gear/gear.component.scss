@@ -1,0 +1,65 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    gap: 16px 0;
+}
+
+p {
+    margin: 0;
+}
+
+.equipped-item-wrapper {
+    flex: 50%;
+    display: flex;
+
+    &:nth-child(odd) {
+        .equipped-item-info {
+            padding-left: 12px;
+        }
+    }
+
+    &:nth-child(even) {
+        justify-content: flex-end;
+
+        & .equipped-item-info {
+            padding-right: 12px;
+        }
+
+        & .equipped-item-icon-wrapper {
+            order: 2;
+        }
+
+        & .equipped-item-enchant-socket,
+        .equipped-item-name {
+            text-align: right;
+        }
+    }
+}
+
+.equipped-item-icon-wrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+.equipped-item-level {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+}
+
+.equipped-item-icon {
+    display: block;
+    border-radius: 3px;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.equipped-item-info {
+    cursor: pointer;
+}
+
+.equipped-item-enchant-socket {
+    font-size: 12px;
+    line-height: 1;
+}

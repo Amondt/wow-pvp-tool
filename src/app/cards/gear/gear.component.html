@@ -1,0 +1,239 @@
+<div *ngIf="charDetails" class="container">
+    <div
+        *ngFor="let equippedItem of equippedItemsArray; let i = index"
+        class="equipped-item-wrapper"
+    >
+        <div
+            class="equipped-item-icon-wrapper"
+            (mouseenter)="toggleItemDetails(i)"
+            (mouseleave)="toggleItemDetails(i)"
+            cdkOverlayOrigin
+            #trigger="cdkOverlayOrigin"
+            [ngStyle]="{
+                'background-image': 'url(assets/emptySlotsIcons.png)'
+            }"
+        >
+            <img
+                [src]="
+                    equippedItem.media?.value || 'assets/emptySlotsIcons.png'
+                "
+                [alt]="equippedItem.name"
+                class="equipped-item-icon"
+                [ngStyle]="{
+                    'border-color': getItemColor(
+                        equippedItem.quality?.type || ''
+                    ),
+                    width: '58px',
+                    height: '58px',
+                    'object-fit': 'cover',
+                    'object-position': equippedItem.media
+                        ? '0'
+                        : '0 ' + equippedItem.emptySlotBackgroundPosition + 'px'
+                }"
+            />
+            <span class="equipped-item-level mat-caption">
+                {{ equippedItem.level?.value }}
+            </span>
+        </div>
+        <div
+            class="equipped-item-info"
+            (mouseenter)="toggleItemDetails(i)"
+            (mouseleave)="toggleItemDetails(i)"
+            cdkOverlayOrigin
+            #trigger="cdkOverlayOrigin"
+            *ngIf="equippedItem.name"
+        >
+            <p
+                class="equipped-item-name mat-subheading-1"
+                [ngStyle]="{
+                    color: getItemColor(equippedItem.quality.type || '')
+                }"
+            >
+                {{ equippedItem.name }}
+            </p>
+
+            <p
+                class="equipped-item-enchant-socket mat-caption"
+                *ngIf="equippedItem.enchantments"
+                [ngStyle]="{ 'margin-bottom': '4px' }"
+            >
+                {{ equippedItem.enchantments[0].display_string }}
+            </p>
+
+            <p
+                class="equipped-item-enchant-socket mat-caption"
+                *ngIf="equippedItem.sockets"
+            >
+                Socketed: {{ equippedItem.sockets[0].display_string }}
+            </p>
+        </div>
+
+        <ng-template
+            cdkConnectedOverlay
+            [cdkConnectedOverlayOrigin]="trigger"
+            [cdkConnectedOverlayOpen]="equippedItem.isOverlayOpen"
+        >
+            <mat-card
+                class="mat-elevation-z6 talent-overlay"
+                [ngStyle]="{ 'max-width': '400px' }"
+                *ngIf="equippedItem.name"
+            >
+                <p
+                    class="mat-subheading-1"
+                    [ngStyle]="{
+                        color: getItemColor(equippedItem.quality.type)
+                    }"
+                >
+                    {{ equippedItem.name }}
+                </p>
+
+                <p
+                    class="mat-body-1"
+                    *ngIf="equippedItem.name_description"
+                    [ngStyle]="{ color: '#1df800' }"
+                >
+                    {{ equippedItem.name_description.display_string }}
+                </p>
+
+                <p
+                    class="mat-body-1"
+                    *ngIf="equippedItem.level"
+                    [ngStyle]="{ color: '#ffd100' }"
+                >
+                    {{ equippedItem.level.display_string }}
+                </p>
+
+                <p
+                    class="mat-body-1"
+                    *ngIf="equippedItem.transmog"
+                    [ngStyle]="{ color: '#ff80ff', 'white-space': 'pre-line' }"
+                >
+                    {{ equippedItem.transmog.display_string }}
+                </p>
+
+                <p class="mat-body-1" *ngIf="equippedItem.binding">
+                    {{ equippedItem.binding.name }}
+                </p>
+
+                <p class="mat-body-1" *ngIf="equippedItem.limit_category">
+                    {{ equippedItem.limit_category }}
+                </p>
+
+                <p class="mat-body-1">
+                    <span *ngIf="equippedItem.inventory_type">
+                        {{ equippedItem.inventory_type.name }}
+                    </span>
+                    <span *ngIf="equippedItem.item_subclass">
+                        - {{ equippedItem.item_subclass.name }}
+                    </span>
+                </p>
+
+                <div
+                    class="mat-body-1"
+                    *ngIf="equippedItem.stats"
+                    [ngStyle]="{ 'margin-bottom': '12px' }"
+                >
+                    <p
+                        *ngFor="let stat of equippedItem.stats"
+                        [ngStyle]="{ color: getStatColor(stat.display.color) }"
+                    >
+                        {{ stat.display.display_string }}
+                    </p>
+                </div>
+
+                <div
+                    [ngStyle]="{ 'margin-bottom': '12px' }"
+                    *ngIf="equippedItem.sockets || equippedItem.enchantments"
+                >
+                    <p class="mat-body-1" *ngIf="equippedItem.sockets">
+                        Socketed: {{ equippedItem.sockets[0].display_string }}
+                    </p>
+
+                    <p class="mat-body-1" *ngIf="equippedItem.enchantments">
+                        {{ equippedItem.enchantments[0].display_string }}
+                    </p>
+                </div>
+
+                <div
+                    *ngIf="equippedItem.spells"
+                    [ngStyle]="{ 'margin-bottom': '12px' }"
+                >
+                    <p
+                        class="mat-body-1"
+                        *ngFor="let spell of equippedItem.spells"
+                        [ngStyle]="{ color: '#00ff00' }"
+                    >
+                        {{ spell.description }}
+                    </p>
+                </div>
+
+                <div
+                    *ngIf="equippedItem.set"
+                    [ngStyle]="{ 'margin-bottom': '12px' }"
+                >
+                    <p class="mat-body-1" [ngStyle]="{ color: '#ffd100' }">
+                        {{ equippedItem.set.display_string }}
+                    </p>
+
+                    <p
+                        class="mat-body-1"
+                        *ngFor="let item of equippedItem.set.items"
+                        [ngStyle]="{ color: '#ffff98', 'margin-left': '12px' }"
+                    >
+                        {{ item.item.name }}
+                    </p>
+
+                    <div [ngStyle]="{ 'margin-bottom': '12px' }"></div>
+
+                    <p
+                        class="mat-body-1"
+                        *ngFor="let effect of equippedItem.set.effects"
+                        [ngStyle]="{ color: '#00ff00' }"
+                    >
+                        {{ effect.display_string }}
+                    </p>
+                </div>
+
+                <p class="mat-body-1" *ngIf="equippedItem.durability">
+                    {{ equippedItem.durability.display_string }}
+                </p>
+
+                <p
+                    class="mat-body-1"
+                    *ngIf="
+                        equippedItem.requirements &&
+                        equippedItem.requirements.level
+                    "
+                >
+                    {{ equippedItem.requirements.level.display_string }}
+                </p>
+
+                <p
+                    class="mat-body-1"
+                    *ngIf="
+                        equippedItem.requirements &&
+                        equippedItem.requirements.faction
+                    "
+                >
+                    {{ equippedItem.requirements.faction.display_string }}
+                </p>
+
+                <p
+                    class="mat-body-1"
+                    *ngIf="equippedItem.description"
+                    [ngStyle]="{ color: '#f8b700', 'margin-top': '12px' }"
+                >
+                    {{ equippedItem.description }}
+                </p>
+            </mat-card>
+
+            <mat-card
+                class="mat-elevation-z6 talent-overlay"
+                [ngStyle]="{ 'max-width': '400px' }"
+                *ngIf="!equippedItem.name"
+            >
+                <p class="mat-subheading-1">Empty slot</p>
+            </mat-card>
+        </ng-template>
+    </div>
+</div>

@@ -1,0 +1,275 @@
+<div *ngIf="charDetails" class="main-container">
+    <mat-accordion>
+        <div
+            *ngFor="
+                let specialization of charDetails.specializations
+                    .specializations;
+                let specializationIndex = index
+            "
+        >
+            <mat-expansion-panel
+                *ngIf="specialization.talents"
+                [ngStyle]="{
+                    'background-color': 'rgba(100, 100, 100, 0.3)'
+                }"
+                [expanded]="step === specializationIndex"
+                (opened)="setStep(specializationIndex)"
+            >
+                <mat-expansion-panel-header>
+                    <mat-panel-title
+                        [ngStyle]="{
+                            display: 'flex',
+                            'align-items': 'center',
+                            height: '54px'
+                        }"
+                    >
+                        <img
+                            [src]="
+                                specialization.specialization.media
+                                    ? specialization.specialization.media
+                                    : 'assets/talent_not_found.png'
+                            "
+                            [alt]="specialization.specialization.name"
+                            [matTooltip]="specialization.specialization.name"
+                            [ngStyle]="{
+                                width: '32px',
+                                'border-radius': '3px'
+                            }"
+                        />
+                        <span
+                            class="mat-subheading-2"
+                            [ngStyle]="{ margin: '0 10px' }"
+                            >{{ specialization.specialization.name }}</span
+                        >
+                        <img
+                            [src]="
+                                specialization.specialization.role
+                                    ? 'assets/role-icons/' +
+                                      specialization.specialization.role.name +
+                                      '_icon.png'
+                                    : 'assets/talent_not_found.png'
+                            "
+                            [matTooltip]="
+                                specialization.specialization.role?.name
+                            "
+                            [alt]="specialization.specialization.role?.name"
+                            [ngStyle]="{ width: '20px', height: '22px' }"
+                        />
+                    </mat-panel-title>
+
+                    <mat-panel-description
+                        [ngStyle]="{ display: 'flex', 'align-items': 'center' }"
+                        *ngIf="
+                            charDetails.specializations.active_specialization
+                                .id === specialization.specialization.id
+                        "
+                    >
+                        ( Active )
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <mat-divider [inset]="true"></mat-divider>
+
+                <div
+                    [ngStyle]="{
+                        display: 'flex',
+                        'justify-content': 'space-between',
+                        'margin-top': '20px'
+                    }"
+                >
+                    <div [ngStyle]="{ display: 'flex' }">
+                        <div
+                            *ngFor="
+                                let talent of specialization.talents;
+                                let talentIndex = index
+                            "
+                            [ngStyle]="{ position: 'relative' }"
+                        >
+                            <img
+                                width="50px"
+                                [src]="
+                                    talent.media
+                                        ? talent.media
+                                        : 'assets/talent_not_found.png'
+                                "
+                                [alt]="talent.talent.name + ' icon'"
+                                [ngStyle]="{
+                                    'margin-right': '16px',
+                                    'border-radius': '3px',
+                                    cursor: 'pointer'
+                                }"
+                                (mouseenter)="
+                                    toggleTalentDetails(
+                                        talentIndex,
+                                        'pve',
+                                        specializationIndex
+                                    )
+                                "
+                                (mouseleave)="
+                                    toggleTalentDetails(
+                                        talentIndex,
+                                        'pve',
+                                        specializationIndex
+                                    )
+                                "
+                                cdkOverlayOrigin
+                                #trigger="cdkOverlayOrigin"
+                            />
+                            <span
+                                class="mat-caption"
+                                [ngStyle]="{
+                                    position: 'absolute',
+                                    bottom: '4px',
+                                    right: '20px'
+                                }"
+                            >
+                                {{ talentsLearningLevels[talentIndex] }}
+                            </span>
+
+                            <ng-template
+                                cdkConnectedOverlay
+                                [cdkConnectedOverlayOrigin]="trigger"
+                                [cdkConnectedOverlayOpen]="talent.isOverlayOpen"
+                            >
+                                <mat-card
+                                    class="mat-elevation-z6 talent-overlay"
+                                >
+                                    <mat-card-header>
+                                        <img
+                                            mat-card-avatar
+                                            class="talent-overlay--icon"
+                                            [src]="
+                                                talent.media ||
+                                                'assets/talent_not_found.png'
+                                            "
+                                        />
+                                        <mat-card-title>
+                                            {{ talent.talent.name }}
+                                        </mat-card-title>
+                                        <mat-card-subtitle
+                                            >Talent</mat-card-subtitle
+                                        >
+                                    </mat-card-header>
+                                    <mat-divider [inset]="true"></mat-divider>
+                                    <mat-card-content
+                                        class="talent-overlay--content"
+                                    >
+                                        <p>
+                                            {{ talent.spell_tooltip.cast_time
+                                            }}{{
+                                                talent.spell_tooltip.cooldown
+                                                    ? "&nbsp;&nbsp; - &nbsp;&nbsp;" +
+                                                      talent.spell_tooltip
+                                                          .cooldown
+                                                    : ""
+                                            }}
+                                        </p>
+                                        <p>
+                                            {{
+                                                talent.spell_tooltip.description
+                                            }}
+                                        </p>
+                                    </mat-card-content>
+                                </mat-card>
+                            </ng-template>
+                        </div>
+                    </div>
+
+                    <div [ngStyle]="{ display: 'flex' }">
+                        <div
+                            *ngFor="
+                                let talent of specialization.pvp_talent_slots;
+                                let pvpTalentIndex = index
+                            "
+                        >
+                            <img
+                                width="50px"
+                                [src]="
+                                    talent.selected.media
+                                        ? talent.selected.media
+                                        : 'assets/talent_not_found.png'
+                                "
+                                [alt]="talent.selected.talent.name + ' icon'"
+                                [ngStyle]="{
+                                    'margin-left': '16px',
+                                    'border-radius': '3px',
+                                    cursor: 'pointer'
+                                }"
+                                (mouseenter)="
+                                    toggleTalentDetails(
+                                        pvpTalentIndex,
+                                        'pvp',
+                                        specializationIndex
+                                    )
+                                "
+                                (mouseleave)="
+                                    toggleTalentDetails(
+                                        pvpTalentIndex,
+                                        'pvp',
+                                        specializationIndex
+                                    )
+                                "
+                                cdkOverlayOrigin
+                                #trigger="cdkOverlayOrigin"
+                            />
+
+                            <ng-template
+                                cdkConnectedOverlay
+                                [cdkConnectedOverlayOrigin]="trigger"
+                                [cdkConnectedOverlayOpen]="
+                                    talent.selected.isOverlayOpen
+                                "
+                            >
+                                <mat-card
+                                    class="mat-elevation-z6 talent-overlay"
+                                >
+                                    <mat-card-header>
+                                        <img
+                                            mat-card-avatar
+                                            class="talent-overlay--icon"
+                                            [src]="
+                                                talent.selected.media ||
+                                                'assets/talent_not_found.png'
+                                            "
+                                        />
+                                        <mat-card-title>
+                                            {{ talent.selected.talent.name }}
+                                        </mat-card-title>
+                                        <mat-card-subtitle
+                                            >Talent</mat-card-subtitle
+                                        >
+                                    </mat-card-header>
+                                    <mat-divider [inset]="true"></mat-divider>
+                                    <mat-card-content
+                                        class="talent-overlay--content"
+                                    >
+                                        <p>
+                                            {{
+                                                talent.selected.spell_tooltip
+                                                    .cast_time
+                                            }}{{
+                                                talent.selected.spell_tooltip
+                                                    .cooldown
+                                                    ? "&nbsp;&nbsp; - &nbsp;&nbsp;" +
+                                                      talent.selected
+                                                          .spell_tooltip
+                                                          .cooldown
+                                                    : ""
+                                            }}
+                                        </p>
+                                        <p>
+                                            {{
+                                                talent.selected.spell_tooltip
+                                                    .description
+                                            }}
+                                        </p>
+                                    </mat-card-content>
+                                </mat-card>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </div>
+    </mat-accordion>
+</div>

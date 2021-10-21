@@ -1,0 +1,9 @@
+#pvp-container {
+    padding-top: 26px;
+}
+.win {
+    color: #37700e;
+}
+.lost {
+    color: #c14d4d;
+}

@@ -1,0 +1,14 @@
+mat-icon:hover {
+    cursor: pointer;
+}
+mat-icon {
+    user-select: none;
+}
+.container {
+    padding: 10px;
+}
+.color-btn {
+    margin: 5px;
+    width: 20px;
+    height: 20px;
+}

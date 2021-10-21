@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./personal-themes/red-theme.scss";
+@import "./personal-themes/pink-theme.scss";
+@import "./personal-themes//purple-theme.scss";
+@import "./personal-themes/deep-purple-theme.scss";
+@import "./personal-themes/indigo-theme.scss";
+@import "./personal-themes/blue-theme.scss";
+@import "./personal-themes/light-blue-theme.scss";
+@import "./personal-themes/cyan-theme.scss";
+@import "./personal-themes/teal-theme.scss";
+@import "./personal-themes/green-theme.scss";
+@import "./personal-themes/light-green-theme.scss";
+@import "./personal-themes/lime-theme.scss";
+@import "./personal-themes/yellow-theme.scss";
+@import "./personal-themes/amber-theme.scss";
+@import "./personal-themes/orange-theme.scss";
+@import "./personal-themes/deep-orange-theme.scss";
+@import "./personal-themes/brown-theme.scss";
+
+@import "./personal-themes/deep-purple-amber-theme.scss";
+@import "./personal-themes/indigo-pink-theme.scss";
+@import "./personal-themes/pink-blue-grey-theme.scss";
+@import "./personal-themes/purple-green-theme.scss";
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

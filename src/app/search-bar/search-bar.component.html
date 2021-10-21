@@ -1,0 +1,59 @@
+<div id="search-container">
+  <mat-form-field>
+    <input
+      id="search-input"
+      matInput
+      placeholder="Search character"
+      [value]=""
+      autocorrect="off"
+      spellcheck="false"
+      [disabled]="searchDisabled()"
+      (keyup)="onFilter($event.target.value)"
+      (keyup.enter)="onSearchChar()"
+      [matAutocomplete]="auto"
+    />
+
+    <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+      <mat-option
+        *ngFor="let option of options"
+        [value]="option?.name + ' - ' + option?.realm"
+        (click)="selectChar(option?.name + '-' + option?.realm); onSearchChar()"
+      >
+        <img
+          width="16px"
+          [src]="
+            'assets/' +
+            (option?.faction === 0 ? 'alliance' : 'horde') +
+            '_32.png'
+          "
+          alt="faction icon"
+          [ngStyle]="{ float: 'left', margin: '15px 5px 0 0' }"
+        />
+        <span
+          class="mat-body"
+          [ngStyle]="{ color: getClassColor(option?.classId) }"
+          >{{ option?.name }} - {{ option?.realm }}</span
+        >
+        <img
+          width="26px"
+          [src]="
+            'assets/class-icons/26px-ClassIcon_' +
+            getClass(option?.classId) +
+            '.png'
+          "
+          alt="class icon"
+          [ngStyle]="{ float: 'right', 'margin-top': '11px' }"
+        />
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="searchDisabled()"
+    (click)="onSearchChar()"
+  >
+    Search
+  </button>
+</div>

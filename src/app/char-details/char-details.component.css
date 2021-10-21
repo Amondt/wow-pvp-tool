@@ -1,0 +1,18 @@
+mat-spinner {
+    margin: 100px auto;
+}
+mat-card {
+    width: 820px;
+    margin: 20px auto;
+}
+#global-container {
+    padding: 0 10px;
+}
+#search-mat-card {
+    padding: 4px 16px;
+}
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

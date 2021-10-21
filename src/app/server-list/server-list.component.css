@@ -1,0 +1,17 @@
+mat-spinner {
+    margin: 100px auto;
+}
+#table-container {
+    max-width: 800px;
+    min-width: 600px;
+    margin: 40px auto;
+}
+mat-form-field {
+    width: 100%;
+}
+#filter-input {
+    margin: 0 20px;
+}
+table {
+    width: 100%;
+}

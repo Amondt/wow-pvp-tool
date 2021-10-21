@@ -1,0 +1,65 @@
+<div *ngIf="charDetails" class="container">
+    <div
+        *ngFor="let statistic of displayedStatistics; let index = index"
+        class="single-stat-wrapper"
+        cdkOverlayOrigin
+        #trigger="cdkOverlayOrigin"
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 64 64"
+            class="statistic-icon-svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            data-queryselectoralways-ignore=""
+            (mouseenter)="toggleStatisticOverlay(index)"
+            (mouseleave)="toggleStatisticOverlay(index)"
+        >
+            <use
+                [attr.xlink:href]="
+                    'assets/statistics-icons/sprites.svg#' + statistic.name
+                "
+                [attr.fill]="statistic.color"
+            ></use>
+        </svg>
+
+        <div
+            class="statistic-info"
+            (mouseenter)="toggleStatisticOverlay(index)"
+            (mouseleave)="toggleStatisticOverlay(index)"
+        >
+            <p
+                class="statistic-info-single-value"
+                [ngStyle]="{ color: statistic.color }"
+                *ngIf="!statistic.percentage"
+            >
+                {{ statistic.rawAmount }}
+            </p>
+            <p
+                class="statistic-info-single-value"
+                [ngStyle]="{ color: statistic.color }"
+                *ngIf="statistic.percentage"
+            >
+                {{ statistic.percentage | number: "1.0-2" }}%
+            </p>
+            <p class="statistic-info-single-value">
+                {{ statistic.name | titlecase }}
+            </p>
+        </div>
+        <ng-template
+            cdkConnectedOverlay
+            [cdkConnectedOverlayOrigin]="trigger"
+            [cdkConnectedOverlayOpen]="displayedStatistics[index].isOverlayOpen"
+        >
+            <mat-card class="mat-elevation-z6 statistic-overlay">
+                <p class="mat-subheading-2">{{ statistic.name | titlecase }}</p>
+                <mat-card-subtitle *ngIf="statistic.percentage">
+                    {{ statistic.percentage | number: "1.0-2" }}%
+                </mat-card-subtitle>
+                <p class="mat-subheading-2" *ngIf="statistic.percentage">
+                    Total value:
+                </p>
+                <mat-card-subtitle>{{ statistic.rawAmount }}</mat-card-subtitle>
+            </mat-card>
+        </ng-template>
+    </div>
+</div>

@@ -1,0 +1,131 @@
+<div id="info-container-left" *ngIf="charDetails">
+    <a
+        [href]="
+            'https://worldofwarcraft.com/en-gb/character/eu/' +
+            charDetails.realm.slug +
+            '/' +
+            charDetails.name
+        "
+        target="_blank"
+        style="text-decoration: none"
+    >
+        <h1
+            class="mat-title"
+            [ngStyle]="{
+                color: getClassColor(charDetails.character_class.id),
+                'margin-bottom': '0px'
+            }"
+        >
+            {{ charDetails.name }} - {{ charDetails.realm.slug }}
+
+            <img
+                width="18px"
+                [src]="
+                    'assets/' +
+                    charDetails.faction.type.toLowerCase() +
+                    '_32.png'
+                "
+                alt="faction icon"
+                [ngStyle]="{ 'margin-left': '10px' }"
+            />
+        </h1>
+    </a>
+
+    <p
+        *ngIf="charDetails.guild"
+        class="mat-subheading-2"
+        [ngStyle]="{ color: '#D4AF37', 'margin-bottom': '0px' }"
+    >
+        [ {{ charDetails.guild.name }} ]
+    </p>
+    <p
+        *ngIf="!charDetails.guild"
+        class="mat-subheading-2"
+        [ngStyle]="{ color: '#D4AF37', 'margin-bottom': '0px' }"
+    >
+        [ &nbsp;&nbsp;//&nbsp;&nbsp; ]
+    </p>
+
+    <small>Item level: {{ charDetails.equipped_item_level }}</small>
+
+    <p
+        [ngStyle]="{
+            margin: '14px 0 0 0',
+            display: 'flex',
+            'align-items': 'center'
+        }"
+        class="mat-subheading-1"
+    >
+        <img
+            src="assets/PvPRank01.png"
+            alt="honor kills icon"
+            width="14px"
+            [ngStyle]="{ 'margin-right': '10px' }"
+        />
+        {{ charDetails.pvp_summary.honor_level }}
+    </p>
+    <p
+        [ngStyle]="{
+            margin: '0',
+            display: 'flex',
+            'align-items': 'center'
+        }"
+        class="mat-subheading-1"
+    >
+        <img
+            src="assets/achievements.gif"
+            alt="achievements icon"
+            width="10px"
+            [ngStyle]="{ margin: '0 12px 0 2px' }"
+        />
+        {{ charDetails.achievement_points }}
+    </p>
+
+    <div [ngStyle]="{ display: 'flex', 'align-items': 'center' }">
+        <mat-icon id="time-icon">update</mat-icon>
+        <span class="mat-caption">{{
+            charDetails.last_login_timestamp | date: "medium"
+        }}</span>
+    </div>
+
+    <div id="professions-container">
+        <div *ngFor="let prof of charDetails.professions.primaries">
+            <img
+                width="32px"
+                [src]="
+                    'assets/prof-icons/' +
+                    prof.profession.name.toLowerCase() +
+                    '.jpg'
+                "
+                [alt]="prof.profession.name + ' icon'"
+                style="cursor: pointer"
+                [matTooltip]="prof.profession.name"
+            />
+        </div>
+    </div>
+</div>
+
+<div id="info-container-center" *ngIf="charDetails">
+    <img
+        [src]="
+            'assets/class-crests/' +
+            getClass(charDetails.character_class.id) +
+            '.png'
+        "
+        [alt]="charDetails.character_class.name"
+        id="class-crest"
+        [matTooltip]="charDetails.character_class.name"
+    />
+</div>
+
+<div id="info-container-right" *ngIf="charDetails">
+    <img
+        class="mat-elevation-z2"
+        mat-card-image
+        [src]="
+            charDetails.media.assets ? charDetails.media.assets[1].value : ''
+        "
+        alt="character profile image"
+        id="profile-img-inset"
+    />
+</div>

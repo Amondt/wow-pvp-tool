@@ -1,0 +1,35 @@
+<div id="search-container">
+    <mat-card id="search-mat-card" class="mat-elevation-z6">
+        <app-search-bar></app-search-bar>
+    </mat-card>
+</div>
+
+<mat-spinner
+    *ngIf="isFetchingCharDetails"
+    aria-label="loading"
+    strokeWidth="7"
+></mat-spinner>
+
+<div id="global-container" *ngIf="charDetails">
+    <mat-card class="mat-elevation-z6" id="info-container">
+        <app-info class="container"></app-info>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z6" id="pvp-container">
+        <app-pvp class="container"></app-pvp>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z6">
+        <mat-tab-group mat-stretch-tabs style="min-height: 100px">
+            <mat-tab label="Gear">
+                <app-gear></app-gear>
+            </mat-tab>
+            <mat-tab label="Talents">
+                <app-talents></app-talents>
+            </mat-tab>
+            <mat-tab label="Statistics">
+                <app-statistics></app-statistics>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card>
+</div>

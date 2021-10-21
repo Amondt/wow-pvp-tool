@@ -1,0 +1,41 @@
+.container {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px 0;
+}
+
+.single-stat-wrapper {
+    flex: 25%;
+    display: flex;
+}
+
+.statistic-icon-svg {
+    width: 64px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+.statistic-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.statistic-info-single-value {
+    margin: 0;
+}
+
+.mat-subheading-2 {
+    margin-bottom: 0;
+}
+
+mat-card {
+    padding: 16px 20px;
+}
+
+.mat-card-subtitle {
+    margin-bottom: 8px;
+}

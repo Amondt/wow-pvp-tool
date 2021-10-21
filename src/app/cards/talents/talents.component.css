@@ -1,0 +1,29 @@
+.main-container {
+    margin-top: 16px;
+}
+
+mat-spinner {
+    margin: 30px auto;
+}
+
+.talent-overlay {
+    max-width: 400px;
+    margin: 10px 0;
+}
+
+.talent-overlay--content {
+    margin: 16px 0;
+}
+
+.mat-expansion-panel {
+    margin-top: 2px;
+}
+
+.mat-expansion-panel-spacing {
+    margin: 16px 0;
+}
+
+.mat-badge-after span.mat-badge-content.mat-badge-active {
+    right: 6px;
+    bottom: 0px;
+}

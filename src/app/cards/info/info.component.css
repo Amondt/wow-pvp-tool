@@ -1,0 +1,41 @@
+#info-container-left {
+    flex: 1;
+}
+.mat-title {
+    display: flex;
+    align-items: center;
+}
+#time-icon {
+    color: #999;
+    font-size: 14px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+#class-crest {
+    height: 150px;
+    margin: 0 20px;
+    cursor: pointer;
+}
+#professions-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding-right: 5px;
+    margin-top: 14px;
+}
+#professions-container img {
+    border-radius: 3px;
+    margin-right: 10px;
+}
+#info-container-right,
+#info-container-center {
+    display: flex;
+    align-items: center;
+}
+#profile-img-inset {
+    border-radius: 3px;
+}
+.mat-card-image {
+    margin: 0;
+}

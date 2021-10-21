@@ -1,0 +1,98 @@
+<div *ngFor="let bracket of brackets">
+    <div *ngIf="charDetails.pvp_summary.brackets">
+        <div
+            [ngStyle]="{
+                'background-color': 'rgba(100, 100, 100, 0.3)',
+                width: '180px',
+                padding: '16px',
+                'border-radius': '3px'
+            }"
+            class="mat-elevation-z2"
+        >
+            <p class="mat-display-1" [ngStyle]="{ 'margin-bottom': '0' }">
+                {{
+                    charDetails.pvp_summary.brackets[bracket.order]
+                        ? charDetails.pvp_summary.brackets[bracket.order]
+                              ?.rating
+                        : "/"
+                }}
+            </p>
+            <p class="mat-h3" [ngStyle]="{ 'margin-bottom': '0' }">
+                {{ bracket.name }}
+            </p>
+        </div>
+
+        <div [ngStyle]="{ margin: '16px 0 0 16px' }">
+            <small>week</small>
+            <p [ngStyle]="{ margin: '0' }" class="mat-subheading-2">
+                <span class="win">
+                    {{
+                        charDetails.pvp_summary.brackets[bracket.order]
+                            ? charDetails.pvp_summary.brackets[bracket.order]
+                                  ?.weekly_match_statistics.won
+                            : ""
+                    }}
+                </span>
+                /
+                <span class="lost">
+                    {{
+                        charDetails.pvp_summary.brackets[bracket.order]
+                            ? charDetails.pvp_summary.brackets[bracket.order]
+                                  ?.weekly_match_statistics.lost
+                            : ""
+                    }}
+                </span>
+            </p>
+        </div>
+
+        <div [ngStyle]="{ margin: '16px 0 0 16px' }">
+            <small>season</small>
+            <p [ngStyle]="{ margin: '0' }" class="mat-subheading-2">
+                <span class="win">
+                    {{
+                        charDetails.pvp_summary.brackets[bracket.order]
+                            ? charDetails.pvp_summary.brackets[bracket.order]
+                                  ?.season_match_statistics.won
+                            : ""
+                    }}
+                </span>
+                /
+                <span class="lost">
+                    {{
+                        charDetails.pvp_summary.brackets[bracket.order]
+                            ? charDetails.pvp_summary.brackets[bracket.order]
+                                  ?.season_match_statistics.lost
+                            : ""
+                    }}
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <div [ngStyle]="{ margin: '20px 0 0 16px' }" *ngIf="charDetails">
+        <small>highest</small>
+        <p
+            [ngStyle]="{ margin: '0' }"
+            class="mat-subheading-2"
+            *ngIf="bracket.name === '3v3'"
+        >
+            {{ getHighestRating(595) }}
+        </p>
+
+        <p
+            [ngStyle]="{ margin: '0' }"
+            class="mat-subheading-2"
+            *ngIf="bracket.name === '2v2'"
+        >
+            {{ getHighestRating(370) }}
+        </p>
+
+        <p
+            [ngStyle]="{ margin: '0' }"
+            class="mat-subheading-2"
+            *ngIf="bracket.name === 'RBG'"
+        >
+            NA
+        </p>
+    </div>
+</div>
